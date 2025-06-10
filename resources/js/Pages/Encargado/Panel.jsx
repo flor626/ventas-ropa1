@@ -2,37 +2,19 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
 
-const PanelEncargado = () => {
+const Panel = () => {
   return (
     <>
       <Head title="Panel del Encargado" />
-      <div className="min-h-screen bg-gray-100 p-8">
-        <h1 className="text-3xl font-bold mb-6">🛠️ Panel del Encargado</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link href="/encargado/productos" className="bg-white p-6 shadow rounded hover:bg-gray-50">
-            <h2 className="text-xl font-semibold mb-2">📦 Gestión de Productos</h2>
-            <p className="text-gray-600">Agregar, editar o eliminar productos.</p>
-          </Link>
-
-          <Link href="/encargado/pedidos" className="bg-white p-6 shadow rounded hover:bg-gray-50">
-            <h2 className="text-xl font-semibold mb-2">📋 Gestión de Pedidos</h2>
-            <p className="text-gray-600">Ver y actualizar pedidos recibidos.</p>
-          </Link>
-
-          <Link href="/encargado/inventario" className="bg-white p-6 shadow rounded hover:bg-gray-50">
-            <h2 className="text-xl font-semibold mb-2">📊 Inventario</h2>
-            <p className="text-gray-600">Control del stock disponible.</p>
-          </Link>
-
-          <Link href="/encargado/carritos" className="bg-white p-6 shadow rounded hover:bg-gray-50">
-            <h2 className="text-xl font-semibold mb-2">🛒 Productos en Carrito</h2>
-            <p className="text-gray-600">Ver qué productos están en los carritos.</p>
-          </Link>
-
-          <Link href="/encargado/reportes" className="bg-white p-6 shadow rounded hover:bg-gray-50">
-            <h2 className="text-xl font-semibold mb-2">📈 Reporte de Ventas</h2>
-            <p className="text-gray-600">Resumen y análisis mensual de ventas.</p>
+      <div className="min-h-screen bg-gray-100 p-6">
+        <h1 className="text-3xl font-bold mb-6">Panel de Control - Encargado</h1>
+        <div className="space-y-4">
+          <Link
+            href="/admin/productos"
+            className="block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Gestionar Productos
           </Link>
         </div>
       </div>
@@ -40,4 +22,4 @@ const PanelEncargado = () => {
   );
 };
 
-export default PanelEncargado;
+export default Panel;

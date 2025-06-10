@@ -5,7 +5,6 @@ import axios from 'axios';
 
 const Catalogo = () => {
   const [productos, setProductos] = useState([]);
-
   const { auth, canLogin, canRegister } = usePage().props;
 
   useEffect(() => {
@@ -38,7 +37,10 @@ const Catalogo = () => {
             {!auth?.user && (
               <>
                 {canLogin && (
-                  <Link href="/login" className="text-blue-600 hover:underline">Iniciar sesión</Link>
+                  <>
+                    <Link href="/login" className="text-blue-600 hover:underline">Iniciar como Cliente</Link>
+                    <Link href="/login?admin=true" className="text-red-600 hover:underline">Iniciar como Encargado</Link>
+                  </>
                 )}
                 {canRegister && (
                   <Link href="/register" className="text-green-600 hover:underline">Registrarse</Link>
@@ -68,7 +70,6 @@ const Catalogo = () => {
                 className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               >
                 Ver Detalle
-                
               </Link>
             </div>
           ))}

@@ -10,6 +10,9 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\ReporteVentaController;
+use App\Http\Controllers\Admin\ProductoAdminController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'encargado'])->prefix('encargado')->group(function () {
     Route::get('/', fn () => Inertia::render('Encargado/Dashboard'));
+    Route::get('/confirmar-pedido', [PedidoController::class, 'confirmar'])->middleware('auth');
 
     // Productos
     Route::get('/productos', fn () => Inertia::render('Encargado/Productos/Index'));
@@ -79,7 +83,24 @@ Route::get('/productos/{id}', [ProductoController::class, 'show']);
     Route::post('/carritos', [CarritoController::class, 'store']);
     Route::put('/carritos/{id}', [CarritoController::class, 'update']);
     Route::delete('/carritos/{id}', [CarritoController::class, 'destroy']);
+
+
+Route::middleware(['auth', 'encargado'])->group(function () {
+    Route::get('/admin/panel', fn() => Inertia::render('Encargado/Panel'))->name('admin.panel');
+    Route::get('/admin/productos', [ProductoAdminController::class, 'index'])->name('admin.productos.index');
+    Route::get('/admin/productos/crear', [ProductoAdminController::class, 'create'])->name('admin.productos.create');
+    Route::post('/admin/productos', [ProductoAdminController::class, 'store'])->name('admin.productos.store');
+    Route::get('/admin/productos/{id}/editar', [ProductoAdminController::class, 'edit'])->name('admin.productos.edit');
+    Route::put('/admin/productos/{id}', [ProductoAdminController::class, 'update'])->name('admin.productos.update');
+    Route::delete('/admin/productos/{id}', [ProductoAdminController::class, 'destroy'])->name('admin.productos.destroy');
 });
+
+Route::post('/login-encargado', [AuthenticatedSessionController::class, 'storeEncargado'])
+    ->middleware(['guest'])
+    ->name('login.encargado');
+
+});
+
 
 
 });

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import axios from 'axios';
 
+
 const Carrito = () => {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
@@ -60,7 +61,7 @@ const Carrito = () => {
                     <h3 className="text-lg font-semibold">{item.producto.nombre}</h3>
                     <p className="text-gray-500">Talla: {item.producto.talla}</p>
                     <p className="text-green-600">S/. {item.producto.precio}</p>
-                  </div>
+                    </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <input

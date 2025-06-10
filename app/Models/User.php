@@ -18,10 +18,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    'name',
+    'email',
+    'password',
+    'rol', // ← Agrega esto
+];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -51,6 +53,12 @@ class User extends Authenticatable
 
 public function pedidos() {
     return $this->hasMany(Pedido::class);
+}
+
+// En tu modelo User.php
+public function isAdmin()
+{
+    return $this->email === 'admin@example.com'; // Cambia esto por la lógica que necesites
 }
 
 }

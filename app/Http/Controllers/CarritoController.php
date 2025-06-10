@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 
 class CarritoController extends Controller
 {
-   public function index()
+    public function index()
     {
-        return response()->json(Carrito::with('productos')->get());
+        // ✅ Cambiar 'productos' por 'producto'
+        return response()->json(Carrito::with('producto')->get());
     }
+    
 
     public function store(Request $request)
     {
