@@ -35,6 +35,27 @@ class AuthenticatedSessionController extends Controller
 
         return redirect()->intended(route('dashboard', absolute: false));
     }
+    public function storeEncargado(LoginRequest $request): RedirectResponse
+{
+    $request->authenticate();
+    $request->session()->regenerate();
+
+    $user = $request->user();
+
+    if ($user->rol === 'encargado') {
+        return redirect()->route('panel.encargado');
+    }
+
+    // Si no es encargado, cerrar sesión y mostrar error
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect()->route('login')->withErrors([
+        'email' => 'No tienes permisos para acceder como encargado.',
+    ]);
+}
+
 
     /**
      * Destroy an authenticated session.
