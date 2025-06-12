@@ -6,11 +6,12 @@ import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Login({ status, canResetPassword }) {
+export default function Login({ status, canResetPassword, tipo = 'cliente' }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
         remember: false,
+        tipo: tipo,
     });
 
     const submit = (e) => {
@@ -24,6 +25,10 @@ export default function Login({ status, canResetPassword }) {
     return (
         <GuestLayout>
             <Head title="Log in" />
+
+            <h1 className="text-xl font-bold text-center mb-4">
+                Login de {tipo === 'encargado' ? 'Encargado' : 'Cliente'}
+            </h1>
 
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
