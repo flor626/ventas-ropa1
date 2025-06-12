@@ -13,6 +13,8 @@ class ProductoController extends Controller
         return response()->json(Producto::all());
     }
 
+    
+
     public function store(Request $request)
     {
         $producto = Producto::create($request->all());

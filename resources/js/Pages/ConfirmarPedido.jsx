@@ -1,4 +1,3 @@
-// resources/js/Pages/ConfirmacionPedido.jsx
 import React, { useEffect, useState } from 'react';
 import { Head, router } from '@inertiajs/react';
 import axios from 'axios';
@@ -23,20 +22,34 @@ const ConfirmacionPedido = () => {
   };
 
   const confirmarPedido = () => {
-    if (direccion.trim() === '') {
-      alert('Por favor, ingresa una dirección de envío.');
-      return;
-    }
+  if (direccion.trim() === '') {
+    alert('Por favor, ingresa una dirección de envío.');
+    return;
+  }
 
-    axios.post('/pedidos', {
-      direccion,
+  const productosFormateados = items.map(item => ({
+    id: item.producto.id,
+    cantidad: item.cantidad,
+    precio: item.producto.precio
+}));
+
+axios.post('/pedidos', {
+    direccion_envio: direccion,
+    total: total,
+    productos: productosFormateados
+})
+
+    .then(() => {
+      alert('Pedido confirmado. ¡Gracias por tu compra!');
+      router.visit('/historial');
     })
-      .then(() => {
-        alert('Pedido confirmado. ¡Gracias por tu compra!');
-        router.visit('/historial');
-      })
-      .catch(error => console.error('Error al confirmar pedido:', error));
-  };
+    .catch(error => {
+  console.error('Error al confirmar pedido:', error.response ? error.response.data : error.message);
+  alert('Hubo un problema al confirmar el pedido.');
+});
+
+};
+
 
   return (
     <>

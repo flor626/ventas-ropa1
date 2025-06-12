@@ -1,5 +1,8 @@
 import '../css/app.css';
 import './bootstrap';
+import axios from 'axios';
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+axios.defaults.withCredentials = true;
 
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';

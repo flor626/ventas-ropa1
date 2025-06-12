@@ -23,12 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Schema::defaultStringLength(191);
         Inertia::share([
-            'auth' => fn () => [
-                'user' => auth()->user(),
-            ],
-        ]);
+        'auth' => fn () => [
+            'user' => auth()->user(),
+        ],
+    ]);
         
     }
 }

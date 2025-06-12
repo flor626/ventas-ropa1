@@ -1,4 +1,3 @@
-// resources/js/Pages/Catalogo.jsx
 import React, { useEffect, useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import axios from 'axios';
@@ -34,7 +33,20 @@ const Catalogo = () => {
 
             <Link href="/carrito" className="text-blue-600 hover:underline">🛒 Ver Carrito</Link>
 
-            {!auth?.user && (
+            {auth?.user ? (
+              <div className="flex items-center gap-4">
+                <span className="text-gray-700">Hola, {auth.user.name}</span>
+                <Link href="/perfil" className="text-purple-600 hover:underline">Perfil</Link>
+                <form method="POST" action="/logout">
+                  <button
+                    type="submit"
+                    className="text-red-600 hover:underline"
+                  >
+                    Cerrar sesión
+                  </button>
+                </form>
+              </div>
+            ) : (
               <>
                 {canLogin && (
                   <>
@@ -46,10 +58,6 @@ const Catalogo = () => {
                   <Link href="/register" className="text-green-600 hover:underline">Registrarse</Link>
                 )}
               </>
-            )}
-
-            {auth?.user && (
-              <span className="text-gray-700">Hola, {auth.user.name}</span>
             )}
           </div>
         </header>
