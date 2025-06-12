@@ -84,11 +84,12 @@ const Carrito = () => {
             <div className="text-right mt-4">
               <p className="text-lg font-bold">Total: S/. {total.toFixed(2)}</p>
               <Link
-                href="/confirmar-pedido"
-                className="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-              >
-                Confirmar pedido
-              </Link>
+  href="/confirmar"
+  className="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+>
+  Confirmar pedido
+</Link>
+
             </div>
           </div>
         )}

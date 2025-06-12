@@ -17,4 +17,11 @@ public function carritoProductos() {
 public function pedidoProductos() {
     return $this->hasMany(PedidoProducto::class);
 }
+public function pedidos()
+{
+    return $this->belongsToMany(Pedido::class, 'pedido_productos')
+                ->withPivot('cantidad', 'precio_unitario')
+                ->withTimestamps();
+}
+
 }
