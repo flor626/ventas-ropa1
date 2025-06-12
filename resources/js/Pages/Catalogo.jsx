@@ -49,11 +49,9 @@ const Catalogo = () => {
             ) : (
               <>
                 {canLogin && (
-                  <>
-                    <Link href="/login" className="text-blue-600 hover:underline">Iniciar como Cliente</Link>
-                    <Link href="/login?admin=true" className="text-red-600 hover:underline">Iniciar como Encargado</Link>
-                  </>
-                )}
+  <Link href="/login" className="text-blue-600 hover:underline">Iniciar Sesión</Link>
+)}
+
                 {canRegister && (
                   <Link href="/register" className="text-green-600 hover:underline">Registrarse</Link>
                 )}

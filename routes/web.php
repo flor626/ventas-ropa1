@@ -26,6 +26,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::get('/encargado/dashboard', function () {
     return Inertia::render('Encargado/Dashboard');
@@ -107,6 +108,9 @@ Route::middleware(['auth', 'encargado'])->prefix('encargado')->group(function ()
         Route::delete('/productos/{id}', [ProductoAdminController::class, 'destroy'])->name('admin.productos.destroy');
     });
 });
+Route::get('/login/cliente', fn () => Inertia::render('Auth/Login', ['tipo' => 'cliente']));
+Route::get('/login/encargado', fn () => Inertia::render('Auth/Login', ['tipo' => 'encargado']));
+
 
 /*
 |--------------------------------------------------------------------------

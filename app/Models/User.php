@@ -60,5 +60,10 @@ public function isAdmin()
 {
     return $this->email === 'admin@example.com'; // Cambia esto por la lógica que necesites
 }
+public function getRolAttribute()
+{
+    return $this->attributes['rol'];
+}
+
 
 }
