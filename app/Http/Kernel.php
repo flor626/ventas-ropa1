@@ -4,6 +4,8 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Http\Middleware\ValidatePostSize;
+use Illuminate\Routing\Middleware\RolMiddleware;
+use App\Http\Middleware\EncargadoMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -26,6 +28,8 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\VerifyCsrfToken::class, // Asegúrate de que esto esté aquí
+
         ],
 
         'api' => [
@@ -47,10 +51,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-'rol' => \App\Http\Middleware\CheckRol::class,
-'rol' => \App\Http\Middleware\RolMiddleware::class,
+        'rol' => \App\Http\Middleware\VerificarRol::class,
 
-        // Middleware personalizado
+        // ✅ Middlewares personalizados
+
         'encargado' => \App\Http\Middleware\EncargadoMiddleware::class,
     ];
+    
 }

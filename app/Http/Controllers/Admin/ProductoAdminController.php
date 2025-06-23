@@ -11,30 +11,34 @@ class ProductoAdminController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Encargado/Panel');
+        $productos = Producto::all();
 
+    return Inertia::render('Encargado/Productos/Index', [
+        'productos' => $productos
+    ]);
     }
 
     public function create()
-    {
-        return Inertia::render('Encargado/Productos/Create');
-    }
+{
+    return Inertia::render('Encargado/Productos/Agregar');
+}
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'nullable',
-            'precio' => 'required|numeric',
-            'talla' => 'required',
-            'imagen' => 'nullable|url',
-            'stock' => 'required|integer'
-        ]);
 
-        Producto::create($request->all());
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'nullable|string',
+        'talla' => 'required|string|max:50',
+        'precio' => 'required|numeric|min:0',
+        'imagen' => 'nullable|string|max:255', // si es ruta o nombre
+    ]);
 
-        return redirect()->route('admin.productos.index');
-    }
+    Producto::create($validated);
+
+    return redirect()->route('encargado.productos.index')->with('success', 'Producto agregado correctamente');
+}
+
 
     public function edit($id)
     {

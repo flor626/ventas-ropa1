@@ -10,14 +10,17 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\ReporteVentaController;
-use App\Http\Controllers\Admin\ProductoAdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\ProductoAdminController;
+
 
 /*
 |--------------------------------------------------------------------------
 | Rutas Públicas
 |--------------------------------------------------------------------------
 */
+
+
 Route::get('/', function () {
     return Inertia::render('Catalogo', [
         'canLogin' => Route::has('login'),
@@ -61,53 +64,31 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/pedidos', [PedidoController::class, 'store'])->name('pedidos.store');
 
 });
+Route::get('/panel-encargado', fn () => Inertia::render('Encargado/Panel'))
+    ->middleware(['auth']);
+
+
 
 /*
 |--------------------------------------------------------------------------
 | Rutas para el Panel del Encargado
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'encargado'])->prefix('encargado')->group(function () {
-    // Dashboard del encargado
+
+Route::middleware(['auth'])->prefix('encargado')->group(function () {
     Route::get('/', fn () => Inertia::render('Encargado/Dashboard'))->name('encargado.dashboard');
 
     // Productos
-    Route::get('/productos', fn () => Inertia::render('Encargado/Productos/Index'))->name('encargado.productos.index');
-    Route::get('/productos/agregar', fn () => Inertia::render('Encargado/Productos/Agregar'))->name('encargado.productos.agregar');
-    Route::get('/productos/{id}/editar', fn ($id) => Inertia::render('Encargado/Productos/Editar', ['id' => $id]))->name('encargado.productos.editar');
-    Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('detalle.producto');
+    Route::get('/productos', [ProductoAdminController::class, 'index'])->name('encargado.productos.index');
+    Route::get('/productos/agregar', [ProductoAdminController::class, 'create'])->name('encargado.productos.agregar');
+    Route::post('/productos', [ProductoAdminController::class, 'store'])->name('encargado.productos.store');
+    Route::get('/productos/{id}/editar', [ProductoAdminController::class, 'edit'])->name('encargado.productos.editar');
+    Route::put('/productos/{id}', [ProductoAdminController::class, 'update'])->name('encargado.productos.update');
+    Route::delete('/productos/{id}', [ProductoAdminController::class, 'destroy'])->name('encargado.productos.destroy');
 
-    // Pedidos
-    Route::get('/pedidos', fn () => Inertia::render('Encargado/Pedidos/Index'))->name('encargado.pedidos.index');
-    Route::get('/pedidos/{id}', fn ($id) => Inertia::render('Encargado/Pedidos/Detalle', ['id' => $id]))->name('encargado.pedidos.detalle');
-
-    // Inventario y Reportes
-    Route::get('/inventario', fn () => Inertia::render('Encargado/Inventario'))->name('encargado.inventario');
-    Route::get('/reportes', fn () => Inertia::render('Encargado/Reportes'))->name('encargado.reportes');
-
-    // Carritos (administración)
-    Route::get('/carritos', [CarritoController::class, 'index'])->name('encargado.carritos.index');
-    Route::post('/carritos', [CarritoController::class, 'store'])->name('encargado.carritos.store');
-    Route::put('/carritos/{id}', [CarritoController::class, 'update'])->name('encargado.carritos.update');
-    Route::delete('/carritos/{id}', [CarritoController::class, 'destroy'])->name('encargado.carritos.destroy');
-
-    /*
-    |--------------------------------------------------------------------------
-    | Panel Admin (Dentro del módulo Encargado)
-    |--------------------------------------------------------------------------
-    */
-    Route::prefix('admin')->group(function () {
-        Route::get('/panel', fn () => Inertia::render('Encargado/Panel'))->name('admin.panel');
-
-        // CRUD Productos Admin
-        Route::get('/productos', [ProductoAdminController::class, 'index'])->name('admin.productos.index');
-        Route::get('/productos/crear', [ProductoAdminController::class, 'create'])->name('admin.productos.create');
-        Route::post('/productos', [ProductoAdminController::class, 'store'])->name('admin.productos.store');
-        Route::get('/productos/{id}/editar', [ProductoAdminController::class, 'edit'])->name('admin.productos.edit');
-        Route::put('/productos/{id}', [ProductoAdminController::class, 'update'])->name('admin.productos.update');
-        Route::delete('/productos/{id}', [ProductoAdminController::class, 'destroy'])->name('admin.productos.destroy');
-    });
+    // otras rutas protegidas para encargado...
 });
+
 Route::get('/login/cliente', fn () => Inertia::render('Auth/Login', ['tipo' => 'cliente']));
 Route::get('/login/encargado', fn () => Inertia::render('Auth/Login', ['tipo' => 'encargado']));
 

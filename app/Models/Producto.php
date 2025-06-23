@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+        'talla',
+        'precio',
+        'imagen', // si es ruta o nombre
+    ];
     public function inventario() {
     return $this->hasOne(Inventario::class);
 }

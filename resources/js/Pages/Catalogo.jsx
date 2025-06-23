@@ -63,11 +63,11 @@ const Catalogo = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {productos.map(producto => (
             <div key={producto.id} className="bg-white shadow rounded p-4">
-              <img
-                src={producto.imagen_url || 'https://via.placeholder.com/150'}
-                alt={producto.nombre}
-                className="w-full h-48 object-cover mb-4 rounded"
-              />
+             <img
+src={producto.imagen_url ? `http://192.168.1.105:8000/storage/${producto.imagen_url}` : 'https://via.placeholder.com/150'}
+alt={producto.nombre}
+  className="w-full h-48 object-cover mb-4 rounded"
+/>
               <h3 className="text-lg font-semibold">{producto.nombre}</h3>
               <p className="text-gray-500">Talla: {producto.talla}</p>
               <p className="text-green-600 font-bold">S/. {producto.precio}</p>
@@ -77,7 +77,7 @@ const Catalogo = () => {
               >
                 Ver Detalle
               </Link>
-            </div>
+            </div>               
           ))}
         </div>
       </div>
