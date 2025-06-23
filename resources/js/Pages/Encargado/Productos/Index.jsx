@@ -1,71 +1,58 @@
-import React, { useState } from 'react';
-import { Head, router } from '@inertiajs/react';
+import React from 'react';
+import { Link, usePage, router } from '@inertiajs/react';
 
-const Crear = () => {
-  const [form, setForm] = useState({
-    nombre: '',
-    talla: '',
-    precio: '',
-    stock: '',
-    imagen: null
-  });
+export default function Index() {
+    const { productos } = usePage().props;
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'imagen') {
-      setForm({ ...form, imagen: files[0] });
-    } else {
-      setForm({ ...form, [name]: value });
-    }
-  };
+    const handleEliminar = (id) => {
+        if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+            router.delete(route('encargado.productos.destroy', id), {
+                onSuccess: () => {
+                    // Recomendado: recargar la página o quitar el producto del array manualmente
+                }
+            });
+        }
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    return (
+        <div className="max-w-5xl mx-auto mt-10">
+            <h1 className="text-2xl font-bold mb-6">Productos Registrados</h1>
 
-    const data = new FormData();
-    for (const key in form) {
-      data.append(key, form[key]);
-    }
+            <Link href={route('encargado.productos.agregar')} className="inline-block mb-4 bg-green-600 text-white px-4 py-2 rounded">
+                + Agregar nuevo producto
+            </Link>
 
-    router.post('/encargado/productos', data);
-  };
-
-  return (
-    <>
-      <Head title="Agregar Producto" />
-      <div className="min-h-screen bg-gray-100 p-6">
-        <h1 className="text-2xl font-bold mb-6">Agregar Nuevo Producto</h1>
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow space-y-4">
-          <div>
-            <label className="block text-sm font-medium">Nombre:</label>
-            <input type="text" name="nombre" value={form.nombre} onChange={handleChange} required className="w-full border rounded p-2" />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Talla:</label>
-            <input type="text" name="talla" value={form.talla} onChange={handleChange} required className="w-full border rounded p-2" />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Precio:</label>
-            <input type="number" name="precio" value={form.precio} onChange={handleChange} required step="0.01" className="w-full border rounded p-2" />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Stock:</label>
-            <input type="number" name="stock" value={form.stock} onChange={handleChange} required className="w-full border rounded p-2" />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Imagen:</label>
-            <input type="file" name="imagen" onChange={handleChange} accept="image/*" className="w-full" />
-          </div>
-
-          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Guardar Producto</button>
-        </form>
-      </div>
-    </>
-  );
-};
-
-export default Crear;
+            <table className="min-w-full border-collapse border">
+                <thead>
+                    <tr className="bg-gray-200">
+                        <th className="border px-4 py-2">ID</th>
+                        <th className="border px-4 py-2">Nombre</th>
+                        <th className="border px-4 py-2">Precio</th>
+                        <th className="border px-4 py-2">Stock</th>
+                        <th className="border px-4 py-2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {productos.length > 0 ? (
+                        productos.map(producto => (
+                            <tr key={producto.id}>
+                                <td className="border px-4 py-2">{producto.id}</td>
+                                <td className="border px-4 py-2">{producto.nombre}</td>
+                                <td className="border px-4 py-2">S/. {producto.precio}</td>
+                                <td className="border px-4 py-2">{producto.stock}</td>
+                                <td className="border px-4 py-2">
+                                    <Link href={route('encargado.productos.editar', producto.id)} className="text-blue-600 mr-2">Editar</Link>
+                                    <button onClick={() => handleEliminar(producto.id)} className="text-red-600">Eliminar</button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="5" className="text-center p-4">No hay productos registrados.</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
+    );
+}

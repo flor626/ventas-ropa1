@@ -35,7 +35,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                         href="/panel-encargado"
                                         active={route().current('panel.encargado')}
                                     >
-                                        Panel Encargado
+                                        Productos
                                     </NavLink>
                                 )}
                             </div>
