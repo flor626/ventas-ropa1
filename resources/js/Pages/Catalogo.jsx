@@ -21,26 +21,41 @@ const Catalogo = () => {
       <Head title="Catálogo de Productos" />
 
       <div className="min-h-screen bg-gray-100 p-6">
-        <header className="flex flex-wrap justify-between items-center mb-6">
-          <div className="text-2xl font-bold">🧥 Ropa Online</div>
+        {/* Encabezado */}
+        <header className="flex flex-wrap justify-between items-center mb-8 bg-white p-4 rounded-xl shadow-md">
+          <div className="flex items-center gap-3">
+            <img
+              src="https://i.pinimg.com/736x/69/a4/fe/69a4fec92b390a9807196cbd6cfb5356.jpg"
+              alt="Logo tienda de ropa"
+              className="h-14 w-14 rounded-full border-4 border-green-500 shadow-md"
+            />
+            <span className="text-3xl font-bold text-green-700">Ropa Online</span>
+          </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4 mt-4 md:mt-0">
             <input
               type="text"
               placeholder="Buscar producto..."
-              className="border p-2 rounded"
+              className="px-4 py-2 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
             />
 
-            <Link href="/carrito" className="text-blue-600 hover:underline">🛒 Ver Carrito</Link>
+            <Link
+              href="/carrito"
+              className="bg-green-500 text-white px-4 py-2 rounded-xl shadow-md hover:bg-green-600 transition duration-300"
+            >
+              🛒 Ver Carrito
+            </Link>
 
             {auth?.user ? (
               <div className="flex items-center gap-4">
-                <span className="text-gray-700">Hola, {auth.user.name}</span>
-                <Link href="/perfil" className="text-purple-600 hover:underline">Perfil</Link>
+                <span className="text-gray-700">Hola, <strong>{auth.user.name}</strong></span>
+                <Link href="/perfil" className="text-purple-600 font-medium hover:underline">
+                  Perfil
+                </Link>
                 <form method="POST" action="/logout">
                   <button
                     type="submit"
-                    className="text-red-600 hover:underline"
+                    className="text-red-600 font-medium hover:underline"
                   >
                     Cerrar sesión
                   </button>
@@ -49,35 +64,54 @@ const Catalogo = () => {
             ) : (
               <>
                 {canLogin && (
-  <Link href="/login" className="text-blue-600 hover:underline">Iniciar Sesión</Link>
-)}
-
+                  <Link
+                    href="/login"
+                    className="bg-blue-500 text-white px-4 py-2 rounded-xl shadow-md hover:bg-blue-600 transition duration-300"
+                  >
+                    Iniciar Sesión
+                  </Link>
+                )}
                 {canRegister && (
-                  <Link href="/register" className="text-green-600 hover:underline">Registrarse</Link>
+                  <Link
+                    href="/register"
+                    className="bg-green-500 text-white px-4 py-2 rounded-xl shadow-md hover:bg-green-600 transition duration-300"
+                  >
+                    Registrarse
+                  </Link>
                 )}
               </>
             )}
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {/* Productos */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {productos.map(producto => (
-            <div key={producto.id} className="bg-white shadow rounded p-4">
-             <img
-src={producto.imagen_url ? `http://192.168.1.105:8000/storage/${producto.imagen_url}` : 'https://via.placeholder.com/150'}
-alt={producto.nombre}
-  className="w-full h-48 object-cover mb-4 rounded"
-/>
-              <h3 className="text-lg font-semibold">{producto.nombre}</h3>
-              <p className="text-gray-500">Talla: {producto.talla}</p>
-              <p className="text-green-600 font-bold">S/. {producto.precio}</p>
-              <Link
-                href={`/productos/${producto.id}`}
-                className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              >
-                Ver Detalle
-              </Link>
-            </div>               
+            <div
+              key={producto.id}
+              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              <img
+                src={
+                  producto.imagen_url
+                    ? `http://192.168.1.105:8000/storage/${producto.imagen_url}`
+                    : 'https://via.placeholder.com/150'
+                }
+                alt={producto.nombre}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-gray-800">{producto.nombre}</h3>
+                <p className="text-sm text-gray-500">Talla: {producto.talla}</p>
+                <p className="text-green-600 font-semibold text-base mt-1">S/. {producto.precio}</p>
+                <Link
+                  href={`/productos/${producto.id}`}
+                  className="mt-3 inline-block w-full bg-gradient-to-r from-green-500 to-green-600 text-white text-center py-2 font-semibold rounded-xl shadow-md hover:from-green-600 hover:to-green-700 hover:shadow-lg transition duration-300"
+                >
+                  👕 Ver Detalle
+                </Link>
+              </div>
+            </div>
           ))}
         </div>
       </div>
