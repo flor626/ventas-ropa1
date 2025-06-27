@@ -12,7 +12,9 @@ use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\ReporteVentaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\ProductoAdminController;
-
+use App\Http\Controllers\Admin\PedidoAdminController;
+use App\Http\Controllers\Admin\InventarioAdminController;
+use App\Http\Controllers\Admin\ReporteVentaAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +88,15 @@ Route::middleware(['auth'])->prefix('encargado')->group(function () {
     Route::put('/productos/{id}', [ProductoAdminController::class, 'update'])->name('encargado.productos.update');
     Route::delete('/productos/{id}', [ProductoAdminController::class, 'destroy'])->name('encargado.productos.destroy');
 
+
+    Route::get('pedidos', [PedidoAdminController::class, 'index'])->name('encargado.pedidos.index');
+    Route::get('pedidos/{id}', [PedidoAdminController::class, 'show'])->name('encargado.pedidos.show');
+    Route::put('/pedidos/{id}', [PedidoAdminController::class, 'update'])->name('encargado.pedidos.update');
+
+    // Inventario
+    Route::get('inventario', [InventarioAdminController::class, 'index'])->name('encargado.inventario.index');
+
+    // Reportes
     // otras rutas protegidas para encargado...
 });
 

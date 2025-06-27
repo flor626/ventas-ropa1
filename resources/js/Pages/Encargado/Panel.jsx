@@ -15,6 +15,8 @@ const Panel = () => {
           >
             Gestionar Productos
           </Link>
+          <Link href={route('encargado.pedidos.index')} className="block bg-green-600 text-white p-2 rounded">Ver Pedidos</Link>
+        <Link href={route('encargado.inventario.index')} className="block bg-yellow-600 text-white p-2 rounded">Inventario</Link>
         </div>
       </div>
     </>
