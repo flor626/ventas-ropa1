@@ -94,7 +94,7 @@ axios.post('/pedidos', {
               onClick={confirmarPedido}
               className="mt-4 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
             >
-              Confirmar Pedido
+              realizar Pedido
             </button>
           </div>
         )}
