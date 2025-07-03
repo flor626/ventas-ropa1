@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import axios from 'axios';
 
-
 const Carrito = () => {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
@@ -53,7 +52,7 @@ const Carrito = () => {
               <div key={item.id} className="flex items-center justify-between border-b py-4">
                 <div className="flex items-center gap-4">
                   <img
-                    src={item.producto.imagen_url || 'https://via.placeholder.com/80'}
+                    src={item.producto.imagen ? `/storage/productos/${item.producto.imagen}` : 'https://via.placeholder.com/80'}
                     alt={item.producto.nombre}
                     className="w-20 h-20 object-cover rounded"
                   />
@@ -61,7 +60,7 @@ const Carrito = () => {
                     <h3 className="text-lg font-semibold">{item.producto.nombre}</h3>
                     <p className="text-gray-500">Talla: {item.producto.talla}</p>
                     <p className="text-green-600">S/. {item.producto.precio}</p>
-                    </div>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <input
@@ -81,15 +80,24 @@ const Carrito = () => {
               </div>
             ))}
 
-            <div className="text-right mt-4">
+            <div className="text-right mt-6 space-y-4">
               <p className="text-lg font-bold">Total: S/. {total.toFixed(2)}</p>
-              <Link
-  href="/confirmar"
-  className="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
->
-  Confirmar pedido
-</Link>
 
+              <div className="flex flex-col sm:flex-row justify-end gap-3">
+                <Link
+                  href="/"
+                  className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 text-center"
+                >
+                  ⬅️ Seguir comprando
+                </Link>
+
+                <Link
+                  href="/confirmar"
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-center"
+                >
+                  ✅ Confirmar pedido
+                </Link>
+              </div>
             </div>
           </div>
         )}

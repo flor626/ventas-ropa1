@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="">
-        <link href="" rel="stylesheet" />
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-        <!-- Scripts -->
-        @routes
-        @viteReactRefresh
-        @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
-        @inertiaHead
-    </head>
-    <body class="font-sans antialiased">
-        @inertia
-    </body>
+    <!-- Scripts Inertia + React -->
+    @routes
+    @viteReactRefresh
+    @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+    @inertiaHead
+</head>
+<body class="font-sans antialiased">
+    @inertia
+</body>
 </html>
