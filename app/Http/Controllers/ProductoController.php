@@ -5,15 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class ProductoController extends Controller
 {
     public function index()
-    {
-        return response()->json(Producto::all());
-    }
+{
+    $productos = \App\Models\Producto::all();
 
-    
+    return Inertia::render('Catalogo', [
+        'productos' => $productos,
+        'auth' => Auth::user(),
+        'canLogin' => true,
+        'canRegister' => true,
+    ]);
+}
+
+
 
     public function store(Request $request)
     {
