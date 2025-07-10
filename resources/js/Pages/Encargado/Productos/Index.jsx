@@ -19,7 +19,7 @@ export default function Index() {
             {/* Botón para regresar al panel del encargado */}
             <div className="mb-4">
                 <Link
-                    href="/encargado/dashboard"
+                    href="/panel-encargado"
                     className="inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
                 >
                     ← Volver al Panel del Encargado
