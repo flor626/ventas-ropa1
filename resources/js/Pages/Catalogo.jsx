@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 const Catalogo = () => {
-  const { productos = [], auth, canLogin, canRegister } = usePage().props;
+  const { productos: todosLosProductos = [], auth, canLogin, canRegister } = usePage().props;
+  const [busqueda, setBusqueda] = useState('');
+
+  const productosFiltrados = todosLosProductos.filter((producto) =>
+    producto.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
 
   return (
     <>
@@ -22,6 +27,8 @@ const Catalogo = () => {
             <input
               type="text"
               placeholder="Buscar producto..."
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
               className="px-4 py-2 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
             />
             <Link
@@ -58,7 +65,7 @@ const Catalogo = () => {
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {productos.map(producto => (
+          {productosFiltrados.map(producto => (
             <div key={producto.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <img
                 src={producto.imagen ? `/storage/productos/${producto.imagen}` : 'https://via.placeholder.com/150'}
