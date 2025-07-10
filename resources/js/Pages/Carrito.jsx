@@ -42,65 +42,67 @@ const Carrito = () => {
       <Head title="Carrito de Compras" />
 
       <div className="min-h-screen bg-gray-100 p-6">
-        <h1 className="text-2xl font-bold mb-4">🛒 Carrito de Compras</h1>
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-2xl font-bold mb-4">🛒 Carrito de Compras</h1>
 
-        {items.length === 0 ? (
-          <p className="text-gray-600">Tu carrito está vacío.</p>
-        ) : (
-          <div className="bg-white p-4 shadow rounded">
-            {items.map(item => (
-              <div key={item.id} className="flex items-center justify-between border-b py-4">
-                <div className="flex items-center gap-4">
-                  <img
-                    src={item.producto.imagen ? `/storage/productos/${item.producto.imagen}` : 'https://via.placeholder.com/80'}
-                    alt={item.producto.nombre}
-                    className="w-20 h-20 object-cover rounded"
-                  />
-                  <div>
-                    <h3 className="text-lg font-semibold">{item.producto.nombre}</h3>
-                    <p className="text-gray-500">Talla: {item.producto.talla}</p>
-                    <p className="text-green-600">S/. {item.producto.precio}</p>
+          {items.length === 0 ? (
+            <p className="text-gray-600">Tu carrito está vacío.</p>
+          ) : (
+            <div className="bg-white p-4 shadow rounded">
+              {items.map(item => (
+                <div key={item.id} className="flex items-center justify-between border-b py-4">
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={item.producto.imagen ? `/storage/productos/${item.producto.imagen}` : 'https://via.placeholder.com/80'}
+                      alt={item.producto.nombre}
+                      className="w-20 h-20 object-cover rounded"
+                    />
+                    <div>
+                      <h3 className="text-lg font-semibold">{item.producto.nombre}</h3>
+                      <p className="text-gray-500">Talla: {item.producto.talla}</p>
+                      <p className="text-green-600">S/. {item.producto.precio}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      min="1"
+                      value={item.cantidad}
+                      onChange={(e) => cambiarCantidad(item.id, e.target.value)}
+                      className="w-16 border px-2 py-1 rounded"
+                    />
+                    <button
+                      onClick={() => eliminarItem(item.id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Eliminar
+                    </button>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    min="1"
-                    value={item.cantidad}
-                    onChange={(e) => cambiarCantidad(item.id, e.target.value)}
-                    className="w-16 border px-2 py-1 rounded"
-                  />
-                  <button
-                    onClick={() => eliminarItem(item.id)}
-                    className="text-red-600 hover:underline"
+              ))}
+
+              <div className="text-right mt-6 space-y-4">
+                <p className="text-lg font-bold">Total: S/. {total.toFixed(2)}</p>
+
+                <div className="flex flex-col sm:flex-row justify-end gap-3">
+                  <Link
+                    href="/"
+                    className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 text-center"
                   >
-                    Eliminar
-                  </button>
+                    ⬅️ Seguir comprando
+                  </Link>
+
+                  <Link
+                    href="/confirmar"
+                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-center"
+                  >
+                    ✅ Confirmar pedido
+                  </Link>
                 </div>
               </div>
-            ))}
-
-            <div className="text-right mt-6 space-y-4">
-              <p className="text-lg font-bold">Total: S/. {total.toFixed(2)}</p>
-
-              <div className="flex flex-col sm:flex-row justify-end gap-3">
-                <Link
-                  href="/"
-                  className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 text-center"
-                >
-                  ⬅️ Seguir comprando
-                </Link>
-
-                <Link
-                  href="/confirmar"
-                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-center"
-                >
-                  ✅ Confirmar pedido
-                </Link>
-              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </>
   );
