@@ -8,7 +8,7 @@ export default function Index() {
         if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
             router.delete(route('encargado.productos.destroy', id), {
                 onSuccess: () => {
-                    // Recomendado: recargar la página o quitar el producto del array manualmente
+                    // Puedes agregar una notificación si quieres
                 }
             });
         }
@@ -16,9 +16,22 @@ export default function Index() {
 
     return (
         <div className="max-w-5xl mx-auto mt-10">
+            {/* Botón para regresar al panel del encargado */}
+            <div className="mb-4">
+                <Link
+                    href="/encargado/dashboard"
+                    className="inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
+                >
+                    ← Volver al Panel del Encargado
+                </Link>
+            </div>
+
             <h1 className="text-2xl font-bold mb-6">Productos Registrados</h1>
 
-            <Link href={route('encargado.productos.agregar')} className="inline-block mb-4 bg-green-600 text-white px-4 py-2 rounded">
+            <Link
+                href={route('encargado.productos.agregar')}
+                className="inline-block mb-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+            >
                 + Agregar nuevo producto
             </Link>
 
@@ -41,8 +54,18 @@ export default function Index() {
                                 <td className="border px-4 py-2">S/. {producto.precio}</td>
                                 <td className="border px-4 py-2">{producto.stock}</td>
                                 <td className="border px-4 py-2">
-                                    <Link href={route('encargado.productos.editar', producto.id)} className="text-blue-600 mr-2">Editar</Link>
-                                    <button onClick={() => handleEliminar(producto.id)} className="text-red-600">Eliminar</button>
+                                    <Link
+                                        href={route('encargado.productos.editar', producto.id)}
+                                        className="text-blue-600 hover:underline mr-2"
+                                    >
+                                        Editar
+                                    </Link>
+                                    <button
+                                        onClick={() => handleEliminar(producto.id)}
+                                        className="text-red-600 hover:underline"
+                                    >
+                                        Eliminar
+                                    </button>
                                 </td>
                             </tr>
                         ))
