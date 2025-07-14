@@ -34,7 +34,7 @@ const Catalogo = () => {
               href="/carrito"
               className="bg-green-500 text-white px-4 py-2 rounded-xl shadow-md hover:bg-green-600 transition duration-300"
             >
-              🛒 Ver Carrito
+              🛒 Carrito
             </Link>
             {auth ? (
               <div className="flex items-center gap-4">
