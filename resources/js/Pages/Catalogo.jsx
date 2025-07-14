@@ -16,12 +16,12 @@ const Catalogo = () => {
         <header className="flex flex-wrap justify-between items-center mb-8 bg-white p-4 rounded-xl shadow-md">
           <div className="flex items-center gap-3">
   {/* Círculo verde con ícono de camiseta */}
-  <div className="h-14 w-14 flex items-center justify-center rounded-full bg-green-500 text-white text-2xl shadow-md">
+  <div className="h-14 w-14 flex items-center justify-center rounded-full bg-blue-500 text-white text-2xl shadow-md">
     🛍️
   </div>
-  <span className="text-3xl font-bold text-green-700">Ropa Economica</span>
 
- 
+  <span className="text-3xl font-bold text-blue-700">Ropa Online</span>
+
 </div>
 
           <div className="flex flex-wrap items-center gap-4 mt-4 md:mt-0">
