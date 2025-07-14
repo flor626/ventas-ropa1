@@ -9,6 +9,7 @@ export default defineConfig({
         strictPort: true,      // Error si el puerto está ocupado (evita confusión)
         hmr: {
             host: '192.168.10.21', // ✅ Igual que la IP de tu PC
+
         },
     },
     plugins: [

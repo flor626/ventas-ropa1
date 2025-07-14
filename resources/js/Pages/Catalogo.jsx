@@ -19,7 +19,7 @@ const Catalogo = () => {
   <div className="h-14 w-14 flex items-center justify-center rounded-full bg-green-500 text-white text-2xl shadow-md">
     🛍️
   </div>
-  <span className="text-3xl font-bold text-green-700">Ropa Online</span>
+  <span className="text-3xl font-bold text-green-700">Ropa Barata</span>
 </div>
 
           <div className="flex flex-wrap items-center gap-4 mt-4 md:mt-0">
