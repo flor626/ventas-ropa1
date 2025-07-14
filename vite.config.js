@@ -4,11 +4,11 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
     server: {
-        host: 'localhost', // ✅ Pon aquí la IP local de tu PC
+        host: '192.168.1.105', // ✅ Pon aquí la IP local de tu PC
         port: 5173,            // ✅ Puedes cambiar si ese puerto está ocupado
         strictPort: true,      // Error si el puerto está ocupado (evita confusión)
         hmr: {
-            host: 'localhost', // ✅ Igual que la IP de tu PC
+            host: '192.168.1.105', // ✅ Igual que la IP de tu PC
         },
     },
     plugins: [
